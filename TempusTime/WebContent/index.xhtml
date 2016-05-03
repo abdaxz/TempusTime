@@ -13,45 +13,34 @@
         <h:outputStylesheet library="css" name="tempus.css" />
     </h:head>
 	<h:body>
-       	<h:form>
+       	<h:form prependId="false">
     		<div class="title" >
     			<div class="centre">
     			TempusTime
     			</div>
     		</div>
     		<div class="centre content">
-    			<h:outputText value="Välj en av följande kurser: " /><br/>
-    			<br/>
+    			<h:outputText class="heading" value="Välj en av följande kurser: " /><br/>
 	    		<p:selectOneButton value="#{courseManager.selectedCourse}">
 	    			<f:selectItems value="#{courseManager.courseList}" />
 	    		</p:selectOneButton>
 	    		<br/><br/>
-	    		<h:outputText value="Välj en tid:" /><br/>
-	    		<br/>
-	    		
-	    		<div class="div-table">
-             		<div class="div-table-row">
-                		<div class="div-table-col"><p:commandButton value="10 min&nbsp;&nbsp;" /></div>
-                		<div class="div-table-col"><p:commandButton value="15 min&nbsp;&nbsp; " /></div>
-                		<div class="div-table-col"><p:commandButton value="20 min&nbsp;&nbsp; " /></div>
-                	</div>
-                	<div class="div-table-row">
-                		<div class="div-table-col"><p:commandButton value="30 min&nbsp;&nbsp; " /></div>
-                		<div class="div-table-col"><p:commandButton value="45 min&nbsp;&nbsp; " /></div>
-                		<div class="div-table-col"><p:commandButton value="60 min&nbsp;&nbsp; " /></div>
-                	</div>
-                	<div class="div-table-row">
-                		<div class="div-table-col"><p:commandButton value="90 min&nbsp;&nbsp; " /></div>
-                		<div class="div-table-col"><p:commandButton value="120 min" /></div>
-                		<div class="div-table-col"><p:inputText class="custWidth"></p:inputText></div>
-                	</div>
-                </div>
-                <br/><br/>
-                Välj ett moment:<br/>
+	    		<h:outputText class="heading" value="Välj en tid:" /><br/>
+        			<p:selectOneRadio id="duration" value="#{courseManager.duration}"  layout="grid" columns="3">
+            			<f:selectItems value="#{courseManager.durationList}" var="c" itemLabel="#{duration}" itemValue="#{duration}" />
+        			</p:selectOneRadio>	    		
                 <br/>
-                
-                
-	    		
+                <h:outputText class="heading" value="Välj ett moment:" />
+                <br/>
+                	<p:selectOneRadio id="activity" value="#{courseManager.activity}"  layout="grid" columns="2">
+            			<f:selectItems value="#{courseManager.activityList}" var="c" itemLabel="#{activity}" itemValue="#{activity}" />
+        			</p:selectOneRadio><br/>	 	
+        			<p:commandButton value="Registrera" >
+        				<f:ajax execute="@form" render="resultat" />
+        			</p:commandButton>	
+        			<br/><br/>
+        			<h:outputText id="resultat" value="#{courseManager.result()}" />
+        			
     		</div>
     		<div class="footer">
     			<div class="centre content">

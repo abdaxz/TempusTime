@@ -41,8 +41,17 @@
 	font-family: 'Overlock', cursive;
 }
 
+.heading {
+	font-weight: bold;
+}
+
 .custWidth {
 	width: 94px;
+}
+
+.ui-radiobutton {
+    margin-right: 5px !important;
+    margin-left: 5px !important;
 }
 
 .div-table{
