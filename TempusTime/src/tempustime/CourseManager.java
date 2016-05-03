@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -12,6 +13,9 @@ import javax.inject.Named;
 @SessionScoped
 public class CourseManager implements Serializable {
 	private static final long serialVersionUID = 240902154191546462L;
+	
+	@EJB
+	private CourseBean theCourses;
 
 	private List<String> courseList = new ArrayList<String>(Arrays.asList(
 			"1IK213",
@@ -51,6 +55,9 @@ public class CourseManager implements Serializable {
 	private String selectedCourse;
 	
 	public List<String> getCourseList() {
+		List<Course> listOfCourses = theCourses.getListOfCourses();
+		
+		
 		return courseList;
 	}
 
