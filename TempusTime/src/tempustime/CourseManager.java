@@ -17,11 +17,11 @@ public class CourseManager implements Serializable {
 	@EJB
 	private CourseBean theCourses;
 
-	private List<String> courseList = new ArrayList<String>(Arrays.asList(
+	/*private List<String> courseList = new ArrayList<String>(Arrays.asList(
 			"1IK213",
 			"1IK013",
 			"1DV508"
-			));
+			));*/
 	
 	private List<String> durationList = new ArrayList<String>(Arrays.asList(
 			"5 min",
@@ -56,7 +56,16 @@ public class CourseManager implements Serializable {
 	
 	public List<String> getCourseList() {
 		List<Course> listOfCourses = theCourses.getListOfCourses();
+		List<String> courseList = new ArrayList<String>();
 		
+		for(int i = 0; i < listOfCourses.size(); i++)
+		{
+			if(listOfCourses.get(i).getActive()!=0)
+			{
+				String theCourse = listOfCourses.get(i).getId().getCourseName() + listOfCourses.get(i).getId().getTerm() + listOfCourses.get(i).getId().getYear();
+				courseList.add(theCourse);
+			}
+		}
 		
 		return courseList;
 	}

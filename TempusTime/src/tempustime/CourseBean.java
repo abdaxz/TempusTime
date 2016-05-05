@@ -15,14 +15,15 @@ import javax.persistence.TypedQuery;
 @LocalBean
 public class CourseBean {
 
-    @PersistenceContext(name="TempusTime")
+    @PersistenceContext(name="TempusTimer")
     EntityManager em;
 	
     public CourseBean() {
     }
     
     public List<Course> getListOfCourses() {
-    	TypedQuery<Course> theQuery = em.createQuery("select p from Courses p", Course.class);
+    	// I frågan är det entiteten -- inte databasen -- som efterfrågas!
+    	TypedQuery<Course> theQuery = em.createQuery("SELECT c FROM Course c", Course.class);
     	List<Course> result = theQuery.getResultList();
     	
     	return result;
