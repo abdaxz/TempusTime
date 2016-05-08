@@ -29,11 +29,11 @@ public class CourseBean {
     	Course test = new Course();
     	CoursePK testPK = new CoursePK();
     	
-    	testPK.setCourseName("Java");
+    	/*testPK.setCourseName("Java");
     	testPK.setTerm("vt");
     	testPK.setYear(2017);
     	test.setId(testPK);
-    	test.setActive(1);
+    	test.setActive(1);*/
     	
     	//List<Course> result = new ArrayList<Course>();
     	//result.add(test);
