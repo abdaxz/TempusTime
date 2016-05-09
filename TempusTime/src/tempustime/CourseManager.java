@@ -1,5 +1,6 @@
 package tempustime;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +8,9 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
@@ -16,6 +20,10 @@ public class CourseManager implements Serializable {
 	
 	@EJB
 	private CourseBean theCourses;
+	
+	public CourseManager() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
 
 	/*private List<String> courseList = new ArrayList<String>(Arrays.asList(
 			"1IK213",
@@ -102,8 +110,20 @@ public class CourseManager implements Serializable {
 		return activityList;
 	}
 	
-	public String result() {
-		return selectedCourse + " " + duration + " " + activity;
+	public void result() throws IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		//context.addMessage(null, new FacesMessage("Successful",  "Your message: Something's wrong") );
+        
+		if(selectedCourse!=null || duration!=null || activity!=null )
+			context.addMessage(null, new FacesMessage("Inlagt!",  duration + " minuter inlagt på kursen " + selectedCourse) );
+		else
+			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
+		
+		//selectedCourse = duration = activity = null;
+		
+		//ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    //ec.invalidateSession();
+	    //ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 	}
 		
 }

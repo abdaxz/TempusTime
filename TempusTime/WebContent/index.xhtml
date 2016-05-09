@@ -21,26 +21,25 @@
     		</div>
     		<div class="centre content">
     			<h:outputText class="heading" value="Välj en av följande kurser: " /><br/>
-	    		<p:selectOneButton value="#{courseManager.selectedCourse}">
+	    		<p:selectOneButton value="#{courseManager.selectedCourse}" id="courseName">
 	    			<f:selectItems value="#{courseManager.courseList}" />
 	    		</p:selectOneButton>
 	    		<br/><br/>
 	    		<h:outputText class="heading" value="Välj en tid:" /><br/>
         			<p:selectOneRadio id="duration" value="#{courseManager.duration}"  layout="grid" columns="3">
             			<f:selectItems value="#{courseManager.durationList}" var="c" itemLabel="#{duration}" itemValue="#{duration}" />
-        			</p:selectOneRadio>	    		
+        			</p:selectOneRadio>	    	
                 <br/>
                 <h:outputText class="heading" value="Välj ett moment:" />
                 <br/>
                 	<p:selectOneRadio id="activity" value="#{courseManager.activity}"  layout="grid" columns="2">
             			<f:selectItems value="#{courseManager.activityList}" var="c" itemLabel="#{activity}" itemValue="#{activity}" />
         			</p:selectOneRadio><br/>	 	
-        			<p:commandButton value="Registrera" >
-        				<f:ajax execute="@form" render="resultat" />
-        			</p:commandButton>	
-        			<br/><br/>
-        			<h:outputText id="resultat" value="#{courseManager.result()}" />
         			
+        			<p:growl id="growl" showDetail="true" sticky="false" /> 
+        			
+        			<p:commandButton value="Registrera" actionListener="#{courseManager.result}" update="growl" /> 
+        			        			
     		</div>
     		<div class="footer">
     			<div class="centre content">
