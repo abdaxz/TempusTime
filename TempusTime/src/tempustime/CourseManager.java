@@ -111,7 +111,6 @@ public class CourseManager implements Serializable {
 	
 	public void result() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
-		//context.addMessage(null, new FacesMessage("Successful",  "Your message: Something's wrong") );
         
 		if(selectedCourse!=null || duration!=null || activity!=null ) {
 			String[] parts = selectedCourse.split(" ");
@@ -129,17 +128,15 @@ public class CourseManager implements Serializable {
 	    	ca.setActivity(activity);
 	    	ca.setDuration(currDuration);
 	    	
-			theCourses.addCourseActivity(ca);
-			context.addMessage(null, new FacesMessage("Inlagt!",  duration + " minuter inlagt för " + activity + " på kursen " + parts[0] + " " + parts[1] + parts[2]) );
+			try {
+				theCourses.addCourseActivity(ca);
+				context.addMessage(null, new FacesMessage("Inlagt!",  duration + " minuter inlagt för " + activity + " på kursen " + parts[0] + " " + parts[1] + parts[2]) );
+			} catch (Exception e) {
+				context.addMessage(null, new FacesMessage("Ett fel har uppstått!",  "Det gick inte att lägga in i databasen.") );
+			}			
 		}
 		else
 			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
-		
-		//selectedCourse = duration = activity = null;
-		
-		//ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    //ec.invalidateSession();
-	    //ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 	}
 		
 }
