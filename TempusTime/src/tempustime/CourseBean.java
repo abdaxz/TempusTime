@@ -25,5 +25,9 @@ public class CourseBean {
     	
     	return result;
     }
+    
+    public void addCourseActivity(CourseActivity ca) {	
+    	em.persist(ca);
+    }
 
 }

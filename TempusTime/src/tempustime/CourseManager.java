@@ -22,15 +22,9 @@ public class CourseManager implements Serializable {
 	private CourseBean theCourses;
 	
 	public CourseManager() {
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	}
 
-	/*private List<String> courseList = new ArrayList<String>(Arrays.asList(
-			"1IK213",
-			"1IK013",
-			"1DV508"
-			));*/
-	
 	private List<String> durationList = new ArrayList<String>(Arrays.asList(
 			"5 min",
 			"10 min",
@@ -62,6 +56,11 @@ public class CourseManager implements Serializable {
 	
 	private String selectedCourse;
 	
+	private String currCourse;
+	private String currTerm;
+	private int currYear;
+	private int currDuration;
+	
 	public List<String> getCourseList() {
 		List<Course> listOfCourses = theCourses.getListOfCourses();
 		List<String> courseList = new ArrayList<String>();
@@ -70,7 +69,7 @@ public class CourseManager implements Serializable {
 		{
 			if(listOfCourses.get(i).getActive()!=0)
 			{
-				String theCourse = listOfCourses.get(i).getId().getCourseName() + listOfCourses.get(i).getId().getTerm() + listOfCourses.get(i).getId().getYear();
+				String theCourse = listOfCourses.get(i).getId().getCourseName() + " " + listOfCourses.get(i).getId().getTerm() + " " + listOfCourses.get(i).getId().getYear();
 				courseList.add(theCourse);
 			}
 		}
@@ -114,8 +113,25 @@ public class CourseManager implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		//context.addMessage(null, new FacesMessage("Successful",  "Your message: Something's wrong") );
         
-		if(selectedCourse!=null || duration!=null || activity!=null )
-			context.addMessage(null, new FacesMessage("Inlagt!",  duration + " minuter inlagt på kursen " + selectedCourse) );
+		if(selectedCourse!=null || duration!=null || activity!=null ) {
+			String[] parts = selectedCourse.split(" ");
+			currCourse = parts[0];
+			currTerm = parts[1];
+			currYear = Integer.parseInt(parts[2]);
+			String[] durationParts = duration.split(" ");
+			currDuration = Integer.parseInt(durationParts[0]);
+			
+			CourseActivity ca = new CourseActivity();
+	    	
+	    	ca.setName(currCourse);
+	    	ca.setTerm(currTerm);
+	    	ca.setYear(currYear);
+	    	ca.setActivity(activity);
+	    	ca.setDuration(currDuration);
+	    	
+			theCourses.addCourseActivity(ca);
+			context.addMessage(null, new FacesMessage("Inlagt!",  duration + " minuter inlagt för " + activity + " på kursen " + parts[0] + " " + parts[1] + parts[2]) );
+		}
 		else
 			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
 		
