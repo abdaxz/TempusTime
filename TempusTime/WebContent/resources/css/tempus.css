@@ -37,6 +37,10 @@
     transform: translate(-50%, -50%)
 }
 
+.dataWidth {
+	width: 450px;
+}
+
 .content {
 	font-family: 'Overlock', cursive;
 }
@@ -47,6 +51,10 @@
 
 .custWidth {
 	width: 94px;
+}
+
+.rightButton {
+	float: right;
 }
 
 .ui-radiobutton {

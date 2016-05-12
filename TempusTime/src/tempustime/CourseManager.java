@@ -21,6 +21,8 @@ public class CourseManager implements Serializable {
 	@EJB
 	private CourseBean theCourses;
 	
+	private Course courseSelection;
+	
 	public CourseManager() {
 		//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	}
@@ -75,6 +77,10 @@ public class CourseManager implements Serializable {
 		}
 		
 		return courseList;
+	}
+	
+	public List<Course> getCourses() {
+		return theCourses.getListOfCourses();
 	}
 
 	public String getSelectedCourse() {
@@ -138,5 +144,15 @@ public class CourseManager implements Serializable {
 		else
 			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
 	}
+
+	public Course getCourseSelection() {
+		return courseSelection;
+	}
+
+	public void setCourseSelection(Course courseSelection) {
+		this.courseSelection = courseSelection;
+	}
+	
+	
 		
 }

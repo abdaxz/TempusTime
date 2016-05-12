@@ -21,24 +21,27 @@
     		</div>
     		<div class="centre content">
     			<h:outputText class="heading" value="Välj en av följande kurser: " /><br/>
-	    		<p:selectOneButton value="#{courseManager.selectedCourse}" id="courseName">
+	    		<p:selectOneButton value="#{courseManager.selectedCourse}" id="courseName" required="true" requiredMessage="Du måste välja en kurs."> 
 	    			<f:selectItems value="#{courseManager.courseList}" />
 	    		</p:selectOneButton>
+	    		<p:message for="courseName"  showDetail="false"/>
 	    		<br/><br/>
 	    		<h:outputText class="heading" value="Välj en tid:" /><br/>
-        			<p:selectOneRadio id="duration" value="#{courseManager.duration}"  layout="grid" columns="3">
+        			<p:selectOneRadio id="duration" value="#{courseManager.duration}"  layout="grid" columns="3" required="true" requiredMessage="Du måste välja en tid.">
             			<f:selectItems value="#{courseManager.durationList}" var="c" itemLabel="#{duration}" itemValue="#{duration}" />
-        			</p:selectOneRadio>	    	
+        			</p:selectOneRadio>	    
+        		<p:message for="duration" /> 	
                 <br/>
                 <h:outputText class="heading" value="Välj ett moment:" />
                 <br/>
-                	<p:selectOneRadio id="activity" value="#{courseManager.activity}"  layout="grid" columns="2">
+                	<p:selectOneRadio id="activity" value="#{courseManager.activity}"  layout="grid" columns="2" required="true" requiredMessage="Du måste välja ett moment.">
             			<f:selectItems value="#{courseManager.activityList}" var="c" itemLabel="#{activity}" itemValue="#{activity}" />
         			</p:selectOneRadio><br/>	 	
-        			
+        			<p:message for="activity"/>
         			<p:growl id="growl" showDetail="true" sticky="false" /> 
         			
         			<p:commandButton value="Registrera" actionListener="#{courseManager.result}" update="growl" /> 
+        			<p:commandButton value="Inställningar" action="inst" class="rightButton"/>
         			        			
     		</div>
     		<div class="footer">
