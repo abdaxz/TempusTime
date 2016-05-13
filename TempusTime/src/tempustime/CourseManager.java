@@ -162,6 +162,8 @@ public class CourseManager implements Serializable {
 		FacesMessage msg = new FacesMessage("Car Edited", courseSelection.getId().getCourseName());
 		// ((Course) event.getObject()).getId().getCourseName()
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        // Uppdatera databasen och se om det ger nya värden i tabellen!
 	}
 	
 	
