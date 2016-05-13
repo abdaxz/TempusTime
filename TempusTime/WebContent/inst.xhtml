@@ -13,17 +13,24 @@
         <h:outputStylesheet library="css" name="tempus.css" />
     </h:head>
 	<h:body>
-       	<h:form prependId="false">
+       	<h:form id="form" prependId="false">
+       	<p:growl id="msgs" showDetail="true"/>
     		<div class="title" >
     			<div class="centre">
     			TempusTime
     			</div>
     		</div>
     		<div class="centre content">
+    		
+    		
+    		
     		<h:outputText class="heading" value="Kurser:" />
     		
-    		<p:dataTable var="course" value="#{courseManager.courses}" paginator="true" rows="5" selectionMode="single" selection="#{courseManager.selectedCourse}" 
+    		<p:dataTable var="course" value="#{courseManager.courses}" paginator="true" rows="5" selectionMode="single" selection="#{courseManager.courseSelection}" 
     		rowKey="#{course.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
+    		
+    			<p:ajax event="rowEdit" listener="#{courseManager.onRowEdit}" update=":form:msgs" />
+    		
 			    <p:column headerText="Kursnamn">
 			    	<p:cellEditor>
 			    		<f:facet name="output">

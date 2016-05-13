@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +14,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 
 @Named
 @SessionScoped
@@ -153,6 +158,27 @@ public class CourseManager implements Serializable {
 		this.courseSelection = courseSelection;
 	}
 	
+	public void onRowEdit(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Car Edited", courseSelection.getId().getCourseName());
+		// ((Course) event.getObject()).getId().getCourseName()
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	
+	
+	
+	
+	
+	
+	public void showEdit() {
+		Map<String,Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        options.put("width", 640);
+        options.put("height", 340);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        options.put("headerElement", "customheader");
+         
+        RequestContext.getCurrentInstance().openDialog("edit", options, null);
+	}
 		
 }
