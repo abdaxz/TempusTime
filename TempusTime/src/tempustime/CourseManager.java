@@ -13,13 +13,15 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class CourseManager implements Serializable {
 	private static final long serialVersionUID = 240902154191546462L;
 	
@@ -84,9 +86,20 @@ public class CourseManager implements Serializable {
 		return courseList;
 	}
 	
+	List<Course> courses = null;
+	
+	/*public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}*/
+
+
 	public List<Course> getCourses() {
-		return theCourses.getListOfCourses();
+		if(courses==null)
+			courses = theCourses.getListOfCourses();
+		return courses;
 	}
+	
+	
 
 	public String getSelectedCourse() {
 		return selectedCourse;
@@ -159,11 +172,21 @@ public class CourseManager implements Serializable {
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Car Edited", courseSelection.getId().getCourseName());
+		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName());
 		// ((Course) event.getObject()).getId().getCourseName()
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
         // Uppdatera databasen och se om det ger nya värden i tabellen!
+	}
+	
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
 	}
 	
 	

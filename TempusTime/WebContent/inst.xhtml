@@ -13,7 +13,7 @@
         <h:outputStylesheet library="css" name="tempus.css" />
     </h:head>
 	<h:body>
-       	<h:form id="form" prependId="false">
+       	<h:form id="form">
        	<p:growl id="msgs" showDetail="true"/>
     		<div class="title" >
     			<div class="centre">
@@ -26,33 +26,43 @@
     		
     		<h:outputText class="heading" value="Kurser:" />
     		
-    		<p:dataTable var="course" value="#{courseManager.courses}" paginator="true" rows="5" selectionMode="single" selection="#{courseManager.courseSelection}" 
-    		rowKey="#{course.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
+    		<p:dataTable var="oneCourse" value="#{courseManager.courses}" paginator="true" rows="5" selectionMode="single" selection="#{courseManager.courseSelection}" 
+    		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
     		
     			<p:ajax event="rowEdit" listener="#{courseManager.onRowEdit}" update=":form:msgs" />
     		
 			    <p:column headerText="Kursnamn">
 			    	<p:cellEditor>
 			    		<f:facet name="output">
-			        		<h:outputText value="#{course.id.courseName}" />
+			        		<h:outputText value="#{oneCourse.id.courseName}" />
 			        	</f:facet>
 			        	<f:facet name="input">
-			        		<h:inputText value="#{course.id.courseName}"/>
+			        		<h:inputText value="#{oneCourse.id.courseName}"/>
 			        	</f:facet>
 			        </p:cellEditor>
 			    </p:column>
 			 
 			    <p:column headerText="År">
-			        <h:outputText value="#{course.id.year}" />
+			        <h:outputText value="#{oneCourse.id.year}" />
 			    </p:column>
 			 
 			    <p:column headerText="Termin">
-			        <h:outputText value="#{course.id.term}" />
+			        <h:outputText value="#{oneCourse.id.term}" />
 			    </p:column>
 			 
 			    <p:column headerText="Aktiv">
-			        <h:outputText value="#{course.active}" />
-			    </p:column>
+			    	<p:cellEditor>
+			        	<f:facet name="output">
+			        		<h:outputText value="#{oneCourse.active}" />
+			        	</f:facet>
+			        	<f:facet name="input">
+			        		<h:selectOneMenu value="#{oneCourse.active}">
+			        			<f:selectItem itemValue="0" itemLabel="0" />
+			        			<f:selectItem itemValue="1" itemLabel="1" />
+			        		</h:selectOneMenu>
+			        	</f:facet>
+			        </p:cellEditor>
+			    </p:column>	
 			    
 			    <p:column>
 			    	<p:rowEditor />
