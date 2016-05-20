@@ -9,16 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
+
 
 @Named
 @ViewScoped
@@ -28,10 +24,7 @@ public class CourseManager implements Serializable {
 	@EJB
 	private CourseBean theCourses;
 	
-	private Course courseSelection;
-	
 	public CourseManager() {
-		//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	}
 
 	private List<String> durationList = new ArrayList<String>(Arrays.asList(
@@ -86,21 +79,6 @@ public class CourseManager implements Serializable {
 		return courseList;
 	}
 	
-	List<Course> courses = null;
-	
-	/*public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}*/
-
-
-	public List<Course> getCourses() {
-		if(courses==null)
-			courses = theCourses.getListOfCourses();
-		return courses;
-	}
-	
-	
-
 	public String getSelectedCourse() {
 		return selectedCourse;
 	}
@@ -163,37 +141,6 @@ public class CourseManager implements Serializable {
 			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
 	}
 
-	public Course getCourseSelection() {
-		return courseSelection;
-	}
-
-	public void setCourseSelection(Course courseSelection) {
-		this.courseSelection = courseSelection;
-	}
-	
-	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName());
-		// ((Course) event.getObject()).getId().getCourseName()
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
-        // Uppdatera databasen och se om det ger nya värden i tabellen!
-	}
-	
-	public void onCellEdit(CellEditEvent event) {
-		Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-	}
-	
-	
-	
-	
-	
-	
 	public void showEdit() {
 		Map<String,Object> options = new HashMap<String, Object>();
         options.put("modal", true);

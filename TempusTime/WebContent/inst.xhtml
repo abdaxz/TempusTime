@@ -26,10 +26,10 @@
     		
     		<h:outputText class="heading" value="Kurser:" />
     		
-    		<p:dataTable var="oneCourse" value="#{courseManager.courses}" paginator="true" rows="5" selectionMode="single" selection="#{courseManager.courseSelection}" 
+    		<p:dataTable var="oneCourse" value="#{configBean.courses}" paginator="true" rows="5" selectionMode="single" selection="#{configBean.courseSelection}" 
     		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
     		
-    			<p:ajax event="rowEdit" listener="#{courseManager.onRowEdit}" update=":form:msgs" />
+    			<p:ajax event="rowEdit" listener="#{configBean.onRowEdit}" update=":form:msgs" />
     		
 			    <p:column headerText="Kursnamn">
 			    	<p:cellEditor>
