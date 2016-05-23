@@ -15,6 +15,7 @@ import org.primefaces.event.RowEditEvent;
 @ViewScoped
 public class ConfigBean implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private List<Course> courses = null;
 	private Course courseSelection;
 	
@@ -39,7 +40,7 @@ public class ConfigBean implements Serializable {
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName());
+		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName() + " was " + courseSelection.getId().getCourseName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 }

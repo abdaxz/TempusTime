@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -63,9 +64,12 @@ public class CourseManager implements Serializable {
 	private int currYear;
 	private int currDuration;
 	
-	public List<String> getCourseList() {
+	private List<String> courseList = new ArrayList<String>();
+	
+	@PostConstruct
+	public void initCourseList() {
 		List<Course> listOfCourses = theCourses.getListOfCourses();
-		List<String> courseList = new ArrayList<String>();
+		
 		
 		for(int i = 0; i < listOfCourses.size(); i++)
 		{
@@ -75,7 +79,9 @@ public class CourseManager implements Serializable {
 				courseList.add(theCourse);
 			}
 		}
-		
+	}
+	
+	public List<String> getCourseList() {		
 		return courseList;
 	}
 	
@@ -139,18 +145,5 @@ public class CourseManager implements Serializable {
 		}
 		else
 			context.addMessage(null, new FacesMessage("Ett fel!",  "Inte allt var valt!") );
-	}
-
-	public void showEdit() {
-		Map<String,Object> options = new HashMap<String, Object>();
-        options.put("modal", true);
-        options.put("width", 640);
-        options.put("height", 340);
-        options.put("contentWidth", "100%");
-        options.put("contentHeight", "100%");
-        options.put("headerElement", "customheader");
-         
-        RequestContext.getCurrentInstance().openDialog("edit", options, null);
-	}
-		
+	}		
 }
