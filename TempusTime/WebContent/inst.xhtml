@@ -28,6 +28,7 @@
     		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
     		
     			<p:ajax event="rowEdit" listener="#{configBean.onRowEdit}" update=":form:msgs" />
+    			<p:ajax event="rowSelect" listener="#{configBean.onRowSelect}" />
     		
 			    <p:column headerText="Kursnamn">
 			    	<p:cellEditor>
