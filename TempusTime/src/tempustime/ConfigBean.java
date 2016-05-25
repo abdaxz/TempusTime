@@ -63,5 +63,6 @@ public class ConfigBean implements Serializable {
 	public void onRowEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName() + " was " + oldCourse.getId().getCourseName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        
 	}
 }

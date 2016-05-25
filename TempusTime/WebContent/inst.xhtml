@@ -24,21 +24,14 @@
     		
     		<h:outputText class="heading" value="Kurser:" />
     		
-    		<p:dataTable var="oneCourse" value="#{configBean.courses}" paginator="true" rows="5" selectionMode="single" selection="#{configBean.courseSelection}" 
-    		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
+    		<p:dataTable id="listOfCourses" var="oneCourse" value="#{configBean.courses}" paginator="true" rows="5" selectionMode="single" selection="#{configBean.courseSelection}" 
+    		rowKey="#{oneCourse.id}" paginatorPosition="bottom" class="dataWidth">
     		
     			<p:ajax event="rowEdit" listener="#{configBean.onRowEdit}" update=":form:msgs" />
     			<p:ajax event="rowSelect" listener="#{configBean.onRowSelect}" />
     		
 			    <p:column headerText="Kursnamn">
-			    	<p:cellEditor>
-			    		<f:facet name="output">
-			        		<h:outputText value="#{oneCourse.id.courseName}" />
-			        	</f:facet>
-			        	<f:facet name="input">
-			        		<h:inputText value="#{oneCourse.id.courseName}"/>
-			        	</f:facet>
-			        </p:cellEditor>
+			        <h:outputText value="#{oneCourse.id.courseName}" />
 			    </p:column>
 			 
 			    <p:column headerText="År">
@@ -50,22 +43,14 @@
 			    </p:column>
 			 
 			    <p:column headerText="Aktiv">
-			    	<p:cellEditor>
-			        	<f:facet name="output">
-			        		<h:outputText value="#{oneCourse.active}" />
-			        	</f:facet>
-			        	<f:facet name="input">
-			        		<h:selectOneMenu value="#{oneCourse.active}">
-			        			<f:selectItem itemValue="0" itemLabel="0" />
-			        			<f:selectItem itemValue="1" itemLabel="1" />
-			        		</h:selectOneMenu>
-			        	</f:facet>
-			        </p:cellEditor>
+			    	<h:outputText value="#{oneCourse.active}" />
 			    </p:column>	
 			    
-			    <p:column>
-			    	<p:rowEditor />
-			    </p:column>
+			    <p:column style="width:32px;text-align: center">
+             		<p:commandButton icon="ui-icon-close" title="Delete">
+                		<f:setPropertyActionListener value="#{oneCourse}" target="#{configBean.courseSelection}" />
+            		</p:commandButton>
+        		</p:column>
 			    
 			</p:dataTable>
     		
