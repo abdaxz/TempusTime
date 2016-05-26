@@ -36,5 +36,12 @@ public class CourseBean {
     		tmp.setActive(active);
     	}
     }
+    
+    public void deleteCourse(CoursePK c) {
+    	Course tmp = em.find(Course.class, c);
+    	if(tmp!=null) {
+    		em.remove(tmp);
+    	}
+    }
 
 }

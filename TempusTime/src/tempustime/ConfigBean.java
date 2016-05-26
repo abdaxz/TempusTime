@@ -1,7 +1,9 @@
 package tempustime;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -9,6 +11,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -23,6 +27,8 @@ public class ConfigBean implements Serializable {
 	
 	@EJB
 	private CourseBean theCourses;
+	
+	private FacesContext context = FacesContext.getCurrentInstance();
 	
 	@PostConstruct
 	public void init() {
@@ -60,8 +66,20 @@ public class ConfigBean implements Serializable {
 		}
 	}
 	
+	public void deleteCourse() {
+		FacesMessage msg = new FacesMessage("Kursen borttagen", "Alla aktiviteter är också borttagna");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	public void onRowEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Course Edited", ((Course) event.getObject()).getId().getCourseName() + " was " + oldCourse.getId().getCourseName());
+		String active;
+		
+		if(((Course) event.getObject()).getActive()==0)
+			active = "inaktiv";
+		else
+			active = "aktiv";
+		
+		FacesMessage msg = new FacesMessage("Kursen har ändrats", ((Course) event.getObject()).getId().getCourseName() + " är nu " + active);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         theCourses.updateCourseStatus(courseSelection.getId(), ((Course) event.getObject()).getActive());
 	}
