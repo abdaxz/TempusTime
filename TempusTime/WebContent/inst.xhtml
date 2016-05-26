@@ -25,7 +25,7 @@
     		<h:outputText class="heading" value="Kurser:" />
     		
     		<p:dataTable id="listOfCourses" var="oneCourse" value="#{configBean.courses}" paginator="true" rows="5" selectionMode="single" selection="#{configBean.courseSelection}" 
-    		rowKey="#{oneCourse.id}" paginatorPosition="bottom" class="dataWidth">
+    		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
     		
     			<p:ajax event="rowEdit" listener="#{configBean.onRowEdit}" update=":form:msgs" />
     			<p:ajax event="rowSelect" listener="#{configBean.onRowSelect}" />
@@ -43,8 +43,22 @@
 			    </p:column>
 			 
 			    <p:column headerText="Aktiv">
-			    	<h:outputText value="#{oneCourse.active}" />
-			    </p:column>	
+ 			    	<p:cellEditor>
+			        	<f:facet name="output">
+			        		<h:outputText value="#{oneCourse.active}" />
+ 			        	</f:facet>
+ 			        	<f:facet name="input">
+ 			        		<h:selectOneMenu value="#{oneCourse.active}">
+ 			        			<f:selectItem itemValue="0" itemLabel="Nej" />
+ 			        			<f:selectItem itemValue="1" itemLabel="Ja" />
+ 			        		</h:selectOneMenu>
+ 			        	</f:facet>
+ 			        </p:cellEditor>
+ 			    </p:column>	
+			    
+			    <p:column style="width:32px">
+           			<p:rowEditor />
+       			</p:column>
 			    
 			    <p:column style="width:32px;text-align: center">
              		<p:commandButton icon="ui-icon-close" title="Delete">

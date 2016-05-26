@@ -30,6 +30,11 @@ public class CourseBean {
     	em.persist(ca);
     }
     
-    
+    public void updateCourseStatus(CoursePK c, int active) {
+    	Course tmp = em.find(Course.class, c);
+    	if(tmp != null) {
+    		tmp.setActive(active);
+    	}
+    }
 
 }
