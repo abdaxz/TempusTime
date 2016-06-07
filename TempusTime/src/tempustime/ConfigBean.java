@@ -67,8 +67,22 @@ public class ConfigBean implements Serializable {
 	}
 	
 	public void deleteCourse() {
-		FacesMessage msg = new FacesMessage("Kursen borttagen", "Alla aktiviteter är också borttagna");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		if(courseSelection==null) {
+			FacesMessage msg = new FacesMessage("Ett fel uppstod", "Kursen kunde inte tas bort");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} 
+		else 
+		{
+			try {
+				theCourses.deleteCourse(courseSelection.getId());
+			} catch (Exception ex) {
+				FacesMessage msg = new FacesMessage("Ett fel uppstod", "Kursen kunde inte tas bort");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			
+			FacesMessage msg = new FacesMessage("Kursen borttagen", "Alla aktiviteter är också borttagna");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
