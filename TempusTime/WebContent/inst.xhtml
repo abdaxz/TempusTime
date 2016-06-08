@@ -61,10 +61,16 @@
        			</p:column>
        			
        			<p:column>
-       				<p:commandButton icon="ui-icon-close" actionListener="#{configBean.deleteCourse}" update="form:msgs">
+       				<p:commandButton icon="ui-icon-close" actionListener="#{configBean.deleteCourse}" update="form:msgs" ajax="true">
         				<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
     				</p:commandButton>
        			</p:column>
+       			
+       			<f:facet name="footer">
+            		<p:commandButton process="listOfCourses" update=":form:msgs" icon="ui-icon-close" value="Ta bort" actionListener="#{configBean.deleteCourse}">
+            			<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
+            		</p:commandButton>
+        		</f:facet>
 			    
 			</p:dataTable>
 			
