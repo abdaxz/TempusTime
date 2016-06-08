@@ -38,10 +38,23 @@ public class CourseBean {
     }
     
     public void deleteCourse(CoursePK c) {
+    	TypedQuery<CourseActivity> ca = em.createQuery("SELECT c FROM CourseActivity c WHERE c.name = :name AND c.year = :year AND c.term = :term", CourseActivity.class);
+    	ca.setParameter("name", c.getCourseName());
+    	ca.setParameter("year", c.getYear());
+    	ca.setParameter("term", c.getTerm());
+    	
+    	List<CourseActivity> lca = ca.getResultList();
+    	
+    	for(CourseActivity nca: lca){
+    		if(nca!=null){
+    			em.remove(nca);
+    		}
+    	}
+    	
     	Course tmp = em.find(Course.class, c);
     	if(tmp!=null) {
     		em.remove(tmp);
-    	}
+    	}    	
     }
 
 }
