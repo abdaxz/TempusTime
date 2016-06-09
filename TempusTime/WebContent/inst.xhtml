@@ -25,7 +25,7 @@
     		<h:outputText class="heading" value="Kurser:" />
     		
     		<p:dataTable id="listOfCourses" var="oneCourse" value="#{configBean.courses}" paginator="true" rows="5" selectionMode="single" selection="#{configBean.courseSelection}" 
-    		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" class="dataWidth">
+    		rowKey="#{oneCourse.id}" editable="true" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {LastPageLink} {NextPageLink} {buttonList}" class="dataWidth">
     		
     			<p:ajax event="rowEdit" listener="#{configBean.onRowEdit}" update=":form:msgs" />
     			<p:ajax event="rowSelect" listener="#{configBean.onRowSelect}" />
@@ -60,15 +60,18 @@
            			<p:rowEditor />
        			</p:column>
        			
-       			<p:column>
+       			<!--  <p:column>
        				<p:commandButton icon="ui-icon-close" actionListener="#{configBean.deleteCourse}" update="form:msgs" ajax="true">
         				<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
     				</p:commandButton>
-       			</p:column>
+       			</p:column>  -->
        			
-       			<f:facet name="footer">
-            		<p:commandButton process="listOfCourses" update=":form:msgs" icon="ui-icon-close" value="Ta bort" actionListener="#{configBean.deleteCourse}">
+       			<f:facet name="{buttonList}">
+            		<p:commandButton process="listOfCourses" update=":form:msgs" icon="ui-icon-close" value="Ta bort" actionListener="#{configBean.deleteCourse}" class="rightButton">
             			<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
+            		</p:commandButton>
+            		<p:commandButton value="Lägg till kurs" class="rightButton" icon="ui-icon-plus"> 
+            		
             		</p:commandButton>
         		</f:facet>
 			    
