@@ -60,18 +60,13 @@
            			<p:rowEditor />
        			</p:column>
        			
-       			<!--  <p:column>
-       				<p:commandButton icon="ui-icon-close" actionListener="#{configBean.deleteCourse}" update="form:msgs" ajax="true">
-        				<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
-    				</p:commandButton>
-       			</p:column>  -->
-       			
+  			
        			<f:facet name="{buttonList}">
             		<p:commandButton process="listOfCourses" update=":form:msgs" icon="ui-icon-close" value="Ta bort" actionListener="#{configBean.deleteCourse}" class="rightButton">
             			<p:confirm header="Bekräfta" message="Är du säker?" icon="ui-icon-alert" />
-            		</p:commandButton>
-            		<p:commandButton value="Lägg till kurs" class="rightButton" icon="ui-icon-plus"> 
-            		
+            		</p:commandButton> 
+            		<p:commandButton value="Lägg till kurs" class="rightButton" icon="ui-icon-plus" action="addANewCourse"> 
+            			
             		</p:commandButton>
         		</f:facet>
 			    

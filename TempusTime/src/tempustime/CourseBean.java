@@ -56,5 +56,9 @@ public class CourseBean {
     		em.remove(tmp);
     	}    	
     }
+    
+    public void addNewCourse(Course c) {
+    	em.persist(c);
+    }
 
 }
