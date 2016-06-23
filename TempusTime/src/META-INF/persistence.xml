@@ -3,7 +3,7 @@
 	<persistence-unit name="TempusTimer">
 		<jta-data-source>java:/MySqlDS</jta-data-source>
 		<class>tempustime.Course</class>
-		<class>tempustime.CoursePK</class>
 		<class>tempustime.CourseActivity</class>
+		<class>tempustime.CoursePK</class>
 	</persistence-unit>
 </persistence>
