@@ -21,9 +21,9 @@
     		</div>
     		<div class="centre content">
     			<h:outputText class="heading" value="Välj en av följande kurser: " /><br/>
-	    		<p:selectOneButton value="#{courseManager.selectedCourse}" id="courseName" required="true" requiredMessage="Du måste välja en kurs."> 
+	    		<p:selectOneRadio value="#{courseManager.selectedCourse}" id="courseName" layout="grid" columns = "2" required="true" requiredMessage="Du måste välja en kurs."> 
 	    			<f:selectItems value="#{courseManager.courseList}" />
-	    		</p:selectOneButton>
+	    		</p:selectOneRadio>
 	    		<p:message for="courseName"  showDetail="false"/>
 	    		<br/><br/>
 	    		<h:outputText class="heading" value="Välj en tid:" /><br/>

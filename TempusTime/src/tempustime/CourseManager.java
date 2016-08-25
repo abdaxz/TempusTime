@@ -50,7 +50,9 @@ public class CourseManager implements Serializable {
 			"Labbkonstruktion",
 			"Labbrättning",
 			"Tentakonstruktion",
-			"Tentarättning"
+			"Tentarättning",
+			"Möte",
+			"Övrigt"
 			));
 	
 	private String activity;
